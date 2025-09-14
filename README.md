@@ -1,4 +1,4 @@
-# Resitour360 Monorepo
+# Monorepo
 
 This repository uses npm workspaces.
 
