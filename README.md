@@ -1,34 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Resitour360 Monorepo
 
-## Getting Started
+This repository uses npm workspaces.
 
-First, run the development server:
+- apps/web: Next.js app
+- apps/server: Express + TypeScript API
+
+## Requirements
+
+- Node.js 20+
+- npm 10+
+- Docker (optional, for containerized runs)
+
+## Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Web (Next.js):
+```bash
+npm run dev
+# http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Server (Express):
+```bash
+npm run dev:server
+# http://localhost:4000/health
+```
 
-## Learn More
+Use two terminals to run both concurrently.
 
-To learn more about Next.js, take a look at the following resources:
+## Production (local)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Web:
+```bash
+npm run build
+npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Server:
+```bash
+npm run build:server
+npm run start:server
+```
 
-## Deploy on Vercel
+## Docker
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Build images and start both services:
+```bash
+docker compose build
+docker compose up
+# Web:   http://localhost:3000
+# API:   http://localhost:4000
+# Health http://localhost:4000/health
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Environment
+
+- Server reads `PORT` (default 4000) and can use an `.env` file at `apps/server/.env`.
+- Web runs on port 3000 by default.
+
+## Structure
+
+```
+apps/
+  web/        # Next.js app
+  server/     # Express API (modules with model/controller/routes/services)
+```
